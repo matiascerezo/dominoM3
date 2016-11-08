@@ -22,7 +22,5 @@ public class VistaText {
     public void errorOpcio() {
         System.out.println("Opció no vàlida");
     }
-    
-    
-    
+
 }

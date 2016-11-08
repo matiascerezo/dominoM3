@@ -8,9 +8,8 @@ import java.util.Scanner;
  *
  * @author Matias Cerezo
  */
-
 public class ControlText {
-    
+
     private final Joc joc;
     private final VistaText vText;
 
@@ -18,16 +17,25 @@ public class ControlText {
 
     public ControlText(Joc joc, VistaText vText) {
         this.joc = joc;
-        this.vText = vText;
+        //this.joc = new Joc(4,28,7);
+        this.vText = new VistaText();
     }
- 
-    public boolean comprovarOpcio(int opcio) {
-       return opcio == lector.nextInt();
+
+    public int comprovarOpcio() {
+
+        int opcio = 0;
+        if (lector.hasNextInt()) {
+            opcio = lector.nextInt();
+        } else {
+            String cadena = lector.next();
+            System.out.println("Valor no vàlid.");
+        }
+        return opcio;
     }
-    
+
     public void triarJugada(int opcio) {
-        
-        switch(opcio) {
+
+        switch (opcio) {
             case 1:
                 afegirFitxa();
                 break;
@@ -36,19 +44,26 @@ public class ControlText {
                 break;
             case 3:
                 passarTorn();
-                break;                
+                break;
         }
     }
-    
+
     public void afegirFitxa() {
+        System.out.println("Quina fitxa vols introduir? (Ex:1) ");
+        int fitxaIntroduir = comprovarOpcio();
         
+        
+        
+
     }
-    
+
     public void afegirDobles() {
+        System.out.println("Quina fitxa vols introduir? (Ex:1) ");
+        int fitxaIntroduir = comprovarOpcio();
         
     }
-    
+
     public void passarTorn() {
-        
+
     }
 }
