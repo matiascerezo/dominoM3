@@ -5,45 +5,29 @@ package domino.vista;
  * @author Matias Cerezo
  */
 import domino.model.Fitxa;
-import domino.model.Joc;
-import domino.model.Torn;
+import domino.model.Jugador;
+import java.util.Deque;
 import java.util.List;
 import java.util.Scanner;
 
 public class VistaText {
 
+    //Declarem l'escaner per recollir les dades más endavant
     private final Scanner lector = new Scanner(System.in);
-    private final Torn torn;
-    private final Joc joc;
 
-    public VistaText(Torn torn, Joc joc) {
-        this.torn = torn;
-        this.joc = joc;
-    }
-
-    public void iniciar() {
-
-        while (!joc.isFinalitzat()) {
- 
-            mostrarMissatgeFitxes();
-            //imprimirFitxesJugador(fitxes);
-            mostrarMenuJoc();
-            triarJugada(comprovarOpcio());
-        }
-    }
-        /**
-         * Método para imprimir por pantalla el turno y el nombre del jugador.
-         *
-         * @param torn
-         * @param nom
-         */
+    /**
+     * Mètode per imprimir per pantalla el torn i el nom del jugador.
+     *
+     * @param torn
+     * @param nom
+     */
     public void imprimirDadesTorn(int torn, String nom) {
         System.out.println("TORN: " + torn + "\t" + nom);
     }
 
     /**
-     * Método para mostrar el menú para que el jugador al que le toca escoja que
-     * jugada quiere hacer
+     * Mètode per mostrar el menú perquè el jugador al que li toca esculli que
+     * jugada vol fer
      */
     public void mostrarMenuJoc() {
 
@@ -54,12 +38,15 @@ public class VistaText {
                 + "Opció: ");
     }
 
+    /**
+     * Mostra un missatge d'error
+     */
     public void errorOpcio() {
         System.out.println("Opció no vàlida");
     }
 
     /**
-     * Método para imprimir las fichas que le quedan al jugador por poner.
+     * Mètode per imprimir les fitxes que falten por posar al Jugador X.
      *
      * @param fitxes
      */
@@ -71,58 +58,124 @@ public class VistaText {
 
     }
 
+    /**
+     * Mostra un missatge de quina fitxa vol introduir l'usuari.
+     */
     public void mostrarMissatge() {
         System.out.println("Quina fitxa vols introduir? (Ex:1) ");
     }
 
+    /**
+     * Mostra un missatge que anirá davant de les fitxes que té l'usuari.
+     */
     public void mostrarMissatgeFitxes() {
         System.out.println("Les teves fitxes són: \n");
     }
 
+    /**
+     * Mostra un missatge de text seguit del nom del jugador que guanya la
+     * partida.
+     *
+     * @param guanyador
+     */
+    public void imprimirGuanyador(Jugador guanyador) {
+        System.out.println("El guanyador d'aquesta partida és: " + guanyador.getNom());
+    }
+
+    /**
+     * Mostra un missatge preguntant a l'usuari en que costat vol possar la
+     * fitxa.
+     */
+    public void missatgeCostat() {
+        System.out.println("En què costat vols posar la fitxa?");
+    }
+
+    /**
+     * Mètode per fer la comprovació de que l'opció introduïda es correcte, és a
+     * dir, que l'opció introduïda està entre les possibles.
+     *
+     * @return
+     */
     public int comprovarOpcio() {
 
-        int opcio = 0;
+        int opcio = 0, opcioFinal = 0;
         if (lector.hasNextInt()) {
             opcio = lector.nextInt();
         } else {
             String cadena = lector.nextLine();
             errorOpcio();
         }
-        return opcio;
+        return opcioFinal;
     }
 
-    public void triarJugada(int opcio) {
+    /**
+     * Metode per a imprimir les fitxes que s'han jugat fins ara.
+     *
+     * @param fitxesJaJugades
+     */
+    public void imprimirFitxesJugades(Deque<Fitxa> fitxesJaJugades) {
 
-        switch (opcio) {
-            case 1:
-                afegirFitxa();
+        StringBuilder sbTauler = new StringBuilder();
 
-                break;
-            case 2:
-                afegirDobles();
-                break;
-            case 3:
-                passarTorn();
-                break;
+        for (Fitxa fitxa : fitxesJaJugades) {
+            sbTauler.append(" |");
+            sbTauler.append(fitxa.getValors()[0]);
+            sbTauler.append(":");
+            sbTauler.append(fitxa.getValors()[1]);
+            sbTauler.append("| ");
         }
+        System.out.println(sbTauler);
+
     }
 
-    public void afegirFitxa() {
+    /**
+     * Mètode que comprova si els caracters que introdueix l'usuari, són
+     * caràcters vàlids per a nosaltres.
+     *
+     * @param costat
+     * @return
+     */
+    public boolean comprovarOpcioCostat(char costat) {
 
-        mostrarMissatge();
-        int fitxaIntroduir = comprovarOpcio();
-        //torn.colocarUnaFitxa(f, true);
-
-        joc.actualitzarEstat();
+        return costat == 'D' || costat == 'E'
+                || costat == 'e' || costat == 'd';
     }
 
-    public void afegirDobles() {
+    /**
+     * Mètode que demana el costat de la fitxa, aquest mètode utilitza el
+     * missatge de "En que costat vols possar la fitxa?" i recull la resposta,
+     * fent servir el mètode anterior de si el caràcter es vàlid, assignem de
+     * tal forma que sabem com vol possar la fitxa.
+     *
+     * @return
+     */
+    public boolean demanarCostat() {
+        char esqOdret;
+        boolean costat = false;
+        do {
+            missatgeCostat();
+            esqOdret = lector.next().charAt(0);
 
-        
+        } while (comprovarOpcioCostat(esqOdret));
+
+        if (esqOdret == 'E' || esqOdret == 'e') {
+            costat = true;
+        } else if (esqOdret == 'D' || esqOdret == 'd') {
+            costat = false;
+        }
+        return costat;
     }
 
-    public void passarTorn() {
-        torn.passar();
+    /**
+     * Mètode que comprova que la fitxa introduïda compleix la longitud màxima
+     * de fitxes (7 ja que tindràn 7 fitxes màxim) i que la fitxa hi és al
+     * array.
+     *
+     * @param fitxa
+     * @param longitudFitxes
+     * @return
+     */
+    public boolean comprovarFitxaIntroduida(int fitxa, int longitudFitxes) {
+        return (fitxa > 0 && longitudFitxes <= 7);
     }
-
 }
