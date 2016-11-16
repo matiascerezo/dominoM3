@@ -10,7 +10,7 @@ import java.util.List;
 
 public  class Jugador {
     private String nom;
-    private List<Fitxa> fitxes;
+    public List<Fitxa> fitxes;
  
     public Jugador( String nom) {      
         this.nom = nom;

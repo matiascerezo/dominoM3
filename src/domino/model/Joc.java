@@ -8,15 +8,16 @@ import java.util.Random;
  *
  * @author Matias Cerezo
  */
-
 public class Joc {
- 
+    //He tingut que cambiar de "private" a "public" fitxesJugades, jugadors y torn,
+    //ja que volia utilitzar-los i si eran private no podia.
+
     public final int NUMJUGADORS, NUMFITXES, NUMFITXESJUGADOR;
-    private ArrayDeque<Fitxa> fitxesJugades;
+    public ArrayDeque<Fitxa> fitxesJugades;
     private ArrayList<Fitxa> fitxesInicials;
-    private Jugador[] jugadors;
+    public Jugador[] jugadors;
     private int comptPassar;
-    private int torn;
+    public int torn;
     private boolean finalitzat;
     private Jugador guanyador;
     private Fitxa fitxaInicial;
@@ -36,7 +37,7 @@ public class Joc {
     }
 
     public int getTorn() {
-        return torn;
+        return torn ;
     }
 
     public Jugador[] getJugadors() {
@@ -58,17 +59,18 @@ public class Joc {
     public Jugador getGuanyador() {
         return guanyador;
     }
-/**
- * 
- * @param noms 
- */
+
+    /**
+     *
+     * @param noms
+     */
     public void iniciar(String[] noms) {
         fitxesJugades = new ArrayDeque();
         comptPassar = 0;
-        finalitzat = false;        
+        finalitzat = false;
         crearJugadors(noms);
         crearFitxes();
-        repartirFitxes();       
+        repartirFitxes();
         iniciarTorn();
     }
 
@@ -90,7 +92,7 @@ public class Joc {
                 int[] valors = {i, j};
                 fitxesInicials.add(new Fitxa(valors));
             }
-        } 
+        }
     }
 
     private void crearJugadors(String[] noms) {
@@ -101,7 +103,7 @@ public class Joc {
     }
 
     private void iniciarTorn() {
-        fitxaInicial=fitxesInicials.get(NUMFITXES-1);
+        fitxaInicial = fitxesInicials.get(NUMFITXES - 1);
         for (int i = 0; i < NUMJUGADORS; i++) {
             if (jugadors[i].getFitxes().contains(fitxaInicial)) {
                 torn = i;
@@ -111,9 +113,8 @@ public class Joc {
     }
 
     /**
-     * Es generen els NUMFITXES nombres de l'0 al NUMFITXES-1 de forma
-     * aleatòria i sense repetició utilitzant el mètode nexInt(int n) de la
-     * classe Random.
+     * Es generen els NUMFITXES nombres de l'0 al NUMFITXES-1 de forma aleatòria
+     * i sense repetició utilitzant el mètode nexInt(int n) de la classe Random.
      *
      * @return int[] aleatoris emplenat amb els valors generats.
      */
@@ -134,7 +135,7 @@ public class Joc {
         return aleatoris;
     }
 
-    public void actualitzarEstat() {       
+    public void actualitzarEstat() {
         if (jugadors[torn].getFitxes().isEmpty()) {
             guanyador = jugadors[torn];
             finalitzat = true;
@@ -196,7 +197,7 @@ public class Joc {
         return minimPunts;
     }
 
-    private Jugador trobarGuanyador() {
+    public Jugador trobarGuanyador() {
         Jugador guanya;
         ArrayList<Jugador> minimPunts = comptPunts();
         if (minimPunts.size() == 1) {
