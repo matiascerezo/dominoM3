@@ -22,12 +22,19 @@ public class VistaText {
      * @param jugador
      */
     public void imprimirDadesTorn(int torn, Jugador jugador) {
-        System.out.println("\n///////////////////////////////////////////////////////////////////");
-        System.out.println("\nTÉ EL TORN " + ": " + "Jugador " + torn);
+        System.out.println("\n\t\tTé el torn" + ": " + "Jugador " + torn);
     }
 
     public void missatgeInicial() {
         System.out.println("BENVINGUT AL JOC DEL DOMINÓ");
+    }
+
+    public void espacioContraBarras() {
+        System.out.println("\n////////////////////////////////////////////////////////");
+    }
+
+    public void missatgeTauler() {
+        System.out.println("\n\t\t\tTAULER\n");
     }
 
     /**
@@ -48,7 +55,17 @@ public class VistaText {
      * Mostra un missatge d'error
      */
     public void errorOpcio() {
-        System.out.println("Opció no vàlida");
+        System.err.println("OPCIÓ NO VÀLIDA. TRIA UNA JUGADA VÀLIDA.");
+    }
+
+    /**
+     *
+     * @param error
+     */
+    public void errorDobles(String error) {
+        System.err.println((error.equals("pm") ? "\nERROR! HAS SELECCIONAT LA MATEIXA FITXA. "
+                : "\nERROR! INTENTES POSSAR DUES FITXES EN EL MATEIX COSTAT."));
+
     }
 
     /**
@@ -58,20 +75,28 @@ public class VistaText {
      */
     public void imprimirFitxesJugador(List<Fitxa> fitxes) {
 
+        System.out.println("\nLes teves fitxes són: ");
         for (int i = 0; i < fitxes.size(); i++) {
-            System.out.print(" " + fitxes.get(i).valors[0] + ":" + fitxes.get(i).valors[1] + " ");
+            System.out.print(" [" + fitxes.get(i).valors[0] + ":" + fitxes.get(i).valors[1] + "] ");
         }
 
     }
 
     public int introduirFitxa(List<Fitxa> fitxa) {
-        int fitxaIntroduida;
+        int fitxaIntroduida = 0;
         do {
+            if (lector.hasNextInt()) {
+                fitxaIntroduida = lector.nextInt();
 
-            fitxaIntroduida = lector.nextInt();
+            } else {
+                System.err.println("ERROR! Introdueix una fitxa vàlida.");
+                mostrarMissatge();
+                String cadena = lector.next();
+            }
+
         } while (!comprovarFitxaIntroduida(fitxaIntroduida, fitxa.size()));
 
-        return fitxaIntroduida-1;
+        return fitxaIntroduida - 1;
 
     }
 
@@ -79,27 +104,27 @@ public class VistaText {
      * Mostra un missatge de quina fitxa vol introduir l'usuari.
      */
     public void mostrarMissatge() {
-        System.out.println("\nQuina fitxa vols introduir? (Ex:1-7) ");
+        System.out.println("\nQuina fitxa vols introduir? (Ex:1-7)");
     }
 
     /**
-     * Mostra un missatge després de seleccionar l'opció introduir
-     * dues fitxes dobles, i l'altre missatge després d'introduir
-     * la primera fitxa.
-     * @param fitxa 
+     * Mostra un missatge després de seleccionar l'opció introduir dues fitxes
+     * dobles, i l'altre missatge després d'introduir la primera fitxa.
+     *
+     * @param fitxa
      */
     public void missatgeFitxesDobles(String fitxa) {
-        System.out.println((fitxa.equals("pm") ? "\nQuina es la PRIMERA fitxa que vols introduir? (Ex:0-6) "
-                : "\nQuina es la SEGONA fitxa que vols introduir? (Ex:0-6) "));
+        System.out.println((fitxa.equals("pm") ? "\nQuina es la PRIMERA fitxa que vols introduir? (Ex:1-7) "
+                : "\nQuina es la SEGONA fitxa que vols introduir? (Ex:1-7) "));
 
     }
 
     /**
      * Mostra un missatge que anirá davant de les fitxes que té l'usuari.
      */
-    public void mostrarMissatgeFitxes() {
-        System.out.println("\nLes teves fitxes són: ");
-    }
+//    public void mostrarMissatgeFitxes() {
+//        System.out.println("\nLes teves fitxes són: ");
+//    }
 
     /**
      * Mostra un missatge de text seguit del nom del jugador que guanya la
@@ -121,15 +146,40 @@ public class VistaText {
     }
 
     public void missatgeFitxaCorrecta() {
-        System.out.println("\nFitxa introduida correctament.\n\n");
+        System.out.println("\nFITXA INTRODUIDA CORRECTAMENT.\n\n");
     }
 
     public void missatgeFitxaIncorrecta() {
-        System.out.println("\nLa fitxa NO s'ha introduit. Passarà el torn al següent jugador.\n\n");
+        System.err.println("\nFITXA NO INTRODUIDA. TORNA A PROVAR-HO AMB UNA FITXA VÀLIDA!\n\n");
     }
-    
+
     public void missatgePassarTorn() {
-        System.out.println("\nS'ha passat el torn.");
+        System.out.println("\nS'HA PASSAT EL TORN.");
+    }
+
+    //ARREGLAR EL NO PASSAR
+    public boolean missatgePreguntaPassarTorn() {
+        boolean passarONo = false;
+        do {
+            System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
+
+            if (lector.hasNext()) {
+                String resposta = lector.next();
+                if (resposta.toUpperCase().equals("S")) {
+                    passarONo = true;
+                } else if (resposta.toUpperCase().equals("N")) {
+                    passarONo = false;
+                } else {
+                    System.err.println("ERROR! Introdueix una fitxa vàlida.");
+                }
+            } else {
+                System.out.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
+                int num = lector.nextInt();
+                passarONo = true;
+            }
+        } while (!passarONo);
+
+        return passarONo;
     }
 
     /**
@@ -139,8 +189,12 @@ public class VistaText {
      * @return
      */
     public int comprovarOpcio() {
-        int opcio;
-        opcio = lector.nextInt();
+        int opcio = 0;
+        if (lector.hasNextInt()) {
+            opcio = lector.nextInt();
+        } else {
+            String cadena = lector.next();
+        }
         return opcio;
     }
 
@@ -186,18 +240,18 @@ public class VistaText {
      * @return
      */
     public boolean demanarCostat() {
-        String esqOdret;
+        String esqOdreta;
         boolean costat = false;
         do {
             missatgeCostat();
-            esqOdret = lector.next();
+            esqOdreta = lector.next();
 
-        } while (!comprovarOpcioCostat(esqOdret));
+        } while (!comprovarOpcioCostat(esqOdreta));
 
-        if (esqOdret.toUpperCase().equals("D")) {
-            costat = false;
-        } else if (esqOdret.toUpperCase().equals("E")) {
+        if (esqOdreta.toUpperCase().equals("E")) {
             costat = true;
+        } else if (esqOdreta.toUpperCase().equals("D")) {
+            costat = false;
         }
         return costat;
     }
@@ -212,6 +266,6 @@ public class VistaText {
      * @return
      */
     public boolean comprovarFitxaIntroduida(int fitxa, int longitudFitxes) {
-        return (fitxa > 0 && longitudFitxes <= 7);
+        return (fitxa >= 1 && fitxa <= 7 && longitudFitxes <= 7);
     }
 }
