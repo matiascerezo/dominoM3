@@ -29,16 +29,14 @@ public class ControlText {
      * Asignem els noms als jugadors
      */
     public void nomJugadors() {
-
-        jugadors[0] = "Jugador 1";
-        jugadors[1] = "Jugador 2";
-        jugadors[2] = "Jugador 3";
-        jugadors[3] = "Jugador 4";
-
+        for (int i = 0; i < jugadors.length; i++) {
+            jugadors[i] = "Jugador " + (i + 1);
+        }
     }
 
     public void iniciar() {
-
+        nomJugadors();
+        vText.missatgeInicial();
         joc.iniciar(jugadors);
         torn.inicial();
         joc.torn = joc.getTorn();
@@ -46,12 +44,7 @@ public class ControlText {
 
         do {
             vText.espacioContraBarras();
-            vText.imprimirDadesTorn(joc.getTorn() + 1, joc.jugadors[joc.getTorn()]);
-//            System.out.println("\nTauler\n");
-//            vText.imprimirFitxesJugades(joc.fitxesJugades);
-//            vText.mostrarMissatgeFitxes();
-//            vText.imprimirFitxesJugador(joc.jugadors[joc.getTorn()].getFitxes());
-//            vText.mostrarMenuJoc();
+            vText.imprimirDadesTorn(joc.jugadors[joc.getTorn()]);
             taulerMenuIFitxes();
             triarJugada();
             joc.actualitzarEstat();
@@ -65,20 +58,19 @@ public class ControlText {
         vText.espacioContraBarras();
         vText.missatgeTauler();
         vText.imprimirFitxesJugades(joc.fitxesJugades);
-        //vText.mostrarMissatgeFitxes();
-
+        
         vText.imprimirFitxesJugador(joc.jugadors[joc.getTorn()].getFitxes());
         vText.mostrarMenuJoc();
     }
 
     public void triarJugada() {
 
-        boolean comprovacio;
+        boolean opcioIncorrecta;
 
         do {
-            comprovacio = false;
-            int opcio = vText.comprovarOpcio();
-            switch (opcio) {
+            opcioIncorrecta = false;
+
+            switch (vText.comprovarOpcio()) {
 
                 case 1:
                     afegirUnaFitxa();
@@ -89,15 +81,14 @@ public class ControlText {
                 case 3:
                     vText.missatgePassarTorn();
                     torn.passar();
-
                     break;
                 default:
-                    comprovacio = true;
+                    opcioIncorrecta = true;
                     vText.errorOpcio();
                     taulerMenuIFitxes();
                     break;
             }
-        } while (comprovacio);
+        } while (opcioIncorrecta);
 
     }
 
@@ -110,9 +101,9 @@ public class ControlText {
      */
     public void afegirUnaFitxa() {
 
-        boolean comprovacio = false;
+        boolean opcioIncorrecta;
         do {
-            comprovacio = false;
+            opcioIncorrecta = false;
             vText.mostrarMissatge();
             int fitxa1 = vText.introduirFitxa(joc.jugadors[joc.getTorn()].getFitxes());
             boolean costat = vText.demanarCostat();
@@ -123,20 +114,20 @@ public class ControlText {
 
                 vText.missatgeFitxaIncorrecta();
                 if (vText.missatgePreguntaPassarTorn()) {
-                    comprovacio = false;
+                    opcioIncorrecta = false;
                     torn.passar();
                 }
             }
 
-        } while (comprovacio);
+        } while (opcioIncorrecta);
     }
 
     public void afegirDobles() {
 
-        boolean comprovacio;
+        boolean opcioIncorrecta;
 
         do {
-            comprovacio = false;
+            opcioIncorrecta = false;
 
             //Inici Fitxa 1
             vText.missatgeFitxesDobles("pm");
@@ -150,7 +141,7 @@ public class ControlText {
 
             //Comprovació mateixa fitxa
             if (fitxa1 == fitxa2) {
-                comprovacio = true;
+                opcioIncorrecta = true;
                 vText.errorDobles("pm");
 
             } else {
@@ -164,20 +155,18 @@ public class ControlText {
 
                         vText.missatgeFitxaCorrecta();
                     } else {
-                        comprovacio = true;
+                        opcioIncorrecta = true;
                         vText.missatgeFitxaIncorrecta();
                         if (vText.missatgePreguntaPassarTorn()) {
-                            comprovacio = false;
+                            opcioIncorrecta = false;
                             torn.passar();
                         }
                     }
                 } else {
-
                     vText.errorDobles("missatge2");
-
-                    comprovacio = true;
+                    opcioIncorrecta = true;
                 }
             }
-        } while (comprovacio);
+        } while (opcioIncorrecta);
     }
 }

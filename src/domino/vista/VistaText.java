@@ -18,15 +18,14 @@ public class VistaText {
     /**
      * Mètode per imprimir per pantalla el torn i el nom del jugador.
      *
-     * @param torn
      * @param jugador
      */
-    public void imprimirDadesTorn(int torn, Jugador jugador) {
-        System.out.println("\n\t\tTé el torn" + ": " + "Jugador " + torn);
+    public void imprimirDadesTorn(Jugador jugador) {
+        System.out.println("\n\t\tTé el torn" + ": " + jugador.getNom());
     }
 
     public void missatgeInicial() {
-        System.out.println("BENVINGUT AL JOC DEL DOMINÓ");
+        System.out.println("\t\tBENVINGUT AL JOC DEL DOMINÓ");
     }
 
     public void espacioContraBarras() {
@@ -125,14 +124,13 @@ public class VistaText {
 //    public void mostrarMissatgeFitxes() {
 //        System.out.println("\nLes teves fitxes són: ");
 //    }
-
     /**
      * Mostra un missatge de text seguit del nom del jugador que guanya la
      * partida.
      *
      * @param jugGuanyador
      */
-    public void imprimirGuanyador(Jugador jugGuanyador) {
+    public void imprimirGuanyador(Jugador jugGuanyador ) {
         System.out.println();
         System.out.println("\nEl guanyador d'aquesta partida és: " + jugGuanyador.getNom());
     }
