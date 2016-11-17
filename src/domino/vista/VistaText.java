@@ -130,9 +130,13 @@ public class VistaText {
      *
      * @param jugGuanyador
      */
-    public void imprimirGuanyador(Jugador jugGuanyador ) {
+    public void imprimirGuanyador(Jugador jugGuanyador) {
         System.out.println();
-        System.out.println("\nEl guanyador d'aquesta partida és: " + jugGuanyador.getNom());
+
+        System.out.println("\t╔═════════════════╗ \n\t║" 
+                +"EL GUANYADOR ÉS: "+ jugGuanyador.getNom().toUpperCase()
+                + " ║" + "\n\t╚═════════════════╝ ");
+
     }
 
     /**

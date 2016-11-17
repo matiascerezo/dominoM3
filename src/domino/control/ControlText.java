@@ -63,6 +63,10 @@ public class ControlText {
         vText.mostrarMenuJoc();
     }
 
+    /**
+     * Aquest mètode conté un switch on li arriva un numero amb l'opció escollida
+     * i s'executa la jugada corresponent a l'opció. (Ex: opcio 1. Afegir una fitxa, etc.)
+     */
     public void triarJugada() {
 
         boolean opcioIncorrecta;
