@@ -134,7 +134,7 @@ public class VistaText {
      * Mostra un missatge de quina fitxa vol introduir l'usuari.
      */
     public void mostrarMissatge() {
-        System.out.println("\nQuina fitxa vols introduir? (Ex:1-7)");
+        System.out.print("\nQuina fitxa vols introduir? (Ex:1-7): ");
     }
 
     /**
@@ -144,8 +144,8 @@ public class VistaText {
      * @param fitxa
      */
     public void missatgeFitxesDobles(String fitxa) {
-        System.out.println((fitxa.equals("pm") ? "\nQuina es la PRIMERA fitxa que vols introduir? (Ex:1-7) "
-                : "\nQuina es la SEGONA fitxa que vols introduir? (Ex:1-7) "));
+        System.out.print((fitxa.equals("pm") ? "\nQuina es la PRIMERA fitxa que vols introduir? (Ex:1-7): "
+                : "\nQuina es la SEGONA fitxa que vols introduir? (Ex:1-7): "));
 
     }
 
@@ -169,7 +169,7 @@ public class VistaText {
      * fitxa.
      */
     public void missatgeCostat() {
-        System.out.println("En què costat vols posar la fitxa? (Ex: E -> Esquerra / D -> Dreta)");
+        System.out.print("En què costat vols posar la fitxa? (Ex: E -> Esquerra / D -> Dreta):");
     }
 
     /**
@@ -193,66 +193,15 @@ public class VistaText {
         System.out.println("\nS'HA PASSAT EL TORN.");
     }
 
-    //ARREGLAR EL NO PASSAR
-//    public boolean missatgePreguntaPassarTorn() {
-//        boolean passarONo = false;
-//        do {
-//            System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
-//
-//            if (lector.hasNext()) {
-//                String resposta = lector.next();
-//                if (resposta.toUpperCase().equals("S")) {
-//                    passarONo = true;
-//                } else if (resposta.toUpperCase().equals("N")) {
-//                    passarONo = false;
-//                } else {
-//                    System.err.println("ERROR! Introdueix una fitxa vàlida.");
-//                }
-//            } else {
-//                System.out.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
-//                int num = lector.nextInt();
-//                passarONo = true;
-//            }
-//        } while (!passarONo);
-//
-//        return passarONo;
-//    }
-//    public boolean missatgePreguntaPassarTorn() {
-//        
-//        boolean passarONo = false;
-//        System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
-//        
-//        do {
-//            String resposta;
-//            if (lector.hasNextInt()) {
-//                System.err.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
-//                int num = lector.nextInt();
-//                passarONo = false;
-//            } else {
-//                resposta = lector.next().toUpperCase();
-//
-//                switch (resposta) {
-//                    case "S": {
-//                        passarONo = true;
-//                        break;
-//                    }
-//                    case "N": {
-//                        passarONo = false;
-//                        System.out.println("No");
-//                        break;
-//                    }
-////                    default: {
-////                        System.err.println("ERROR! Introdueix una fitxa vàlida.");
-////                        passarONo = false;
-////                        break;
-////                    }
-//                }
-//            }
-//
-//        } while (!passarONo);
-//
-//        return passarONo;
-//    }
+    /**
+     * Aquest mètode pregunta si l'usuari vol passar torn o no en cas
+     * d'equivocarse al introduir una fitxa. En cas de que introdueixi una "S"
+     * per passar, passarà el torn al següent jugador, en cas contrari tornarà a
+     * preguntar quina fitxa vol introduir l'usuari, en cas de que l'usuari
+     * abans hagi introduit una fitxa que no era vàlida.
+     *
+     * @return
+     */
     public String missatgePreguntaPassarTorn() {
         boolean passarONo = false;
         String resposta = "";
