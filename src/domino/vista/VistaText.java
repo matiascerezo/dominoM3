@@ -169,7 +169,7 @@ public class VistaText {
      * fitxa.
      */
     public void missatgeCostat() {
-        System.out.print("En què costat vols posar la fitxa? (Ex: E -> Esquerra / D -> Dreta):");
+        System.out.print("En què costat vols posar la fitxa? (Ex: E -> Esquerra / D -> Dreta): ");
     }
 
     /**
