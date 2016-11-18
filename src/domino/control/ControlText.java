@@ -24,7 +24,7 @@ public class ControlText {
         this.torn = new Torn(joc);
 
     }
-    
+
     /**
      * Asignem els noms als jugadors
      */
@@ -118,17 +118,21 @@ public class ControlText {
                 vText.missatgeFitxaCorrecta();
                 opcioIncorrecta = true;
             } else {
-
-                vText.missatgeFitxaIncorrecta();
-                if (vText.missatgePreguntaPassarTorn().equals("S")) {
-                    opcioIncorrecta = true;
-                    torn.passar();
-                } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
-                    opcioIncorrecta = false;
-                }
+                opcioIncorrecta = calculPreguntarTorn();
             }
-
         } while (!opcioIncorrecta);
+    }
+
+    private boolean calculPreguntarTorn() {
+        boolean opcioIncorrecta = false;
+        vText.missatgeFitxaIncorrecta();
+        if (vText.missatgePreguntaPassarTorn().equals("S")) {
+            opcioIncorrecta = true;
+            torn.passar();
+        } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
+            opcioIncorrecta = false;
+        }
+        return opcioIncorrecta;
     }
 
     public void afegirDobles() {
@@ -164,14 +168,7 @@ public class ControlText {
 
                         vText.missatgeFitxaCorrecta();
                     } else {
-                        opcioIncorrecta = false;
-                        vText.missatgeFitxaIncorrecta();
-                        if (vText.missatgePreguntaPassarTorn().equals("S")) {
-                            opcioIncorrecta = true;
-                            torn.passar();
-                        } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
-                            opcioIncorrecta = false;
-                        }
+                        opcioIncorrecta = calculPreguntarTorn();
                     }
                 } else {
                     vText.errorDobles("missatge2");
