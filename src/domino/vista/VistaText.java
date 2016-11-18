@@ -158,9 +158,9 @@ public class VistaText {
     public void imprimirGuanyador(Jugador jugGuanyador) {
         System.out.println();
 
-        System.out.println("\t╔═════════════════╗ \n\t║"
-                + "EL GUANYADOR ÉS: " + jugGuanyador.getNom().toUpperCase()
-                + " ║" + "\n\t╚═════════════════╝ ");
+        System.out.println("\t╔════════════════════════════╗ \n\t║"
+                + " EL GUANYADOR ÉS: " + jugGuanyador.getNom().toUpperCase() +" "
+                + "║" + "\n\t╚════════════════════════════╝ ");
 
     }
 
