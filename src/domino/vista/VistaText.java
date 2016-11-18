@@ -203,7 +203,7 @@ public class VistaText {
      * @return
      */
     public String missatgePreguntaPassarTorn() {
-        boolean passarONo = false;
+        boolean passarONo;
         String resposta = "";
         System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
 
@@ -293,11 +293,6 @@ public class VistaText {
 
         } while (!comprovarOpcioCostat(esqOdreta));
 
-//        if (esqOdreta.toUpperCase().equals("E")) {
-//            costat = true;
-//        } else if (esqOdreta.toUpperCase().equals("D")) {
-//            costat = false;
-//        }
         return esqOdreta.toUpperCase().equals("E");
     }
 
