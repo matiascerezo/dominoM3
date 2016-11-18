@@ -24,7 +24,7 @@ public class ControlText {
         this.torn = new Torn(joc);
 
     }
-
+    
     /**
      * Asignem els noms als jugadors
      */
@@ -35,6 +35,7 @@ public class ControlText {
     }
 
     public void iniciar() {
+        vText.espaiContraBarres();
         nomJugadors();
         vText.missatgeInicial();
         joc.iniciar(jugadors);
@@ -43,7 +44,7 @@ public class ControlText {
         joc.actualitzarEstat();
 
         do {
-            vText.espacioContraBarras();
+            vText.espaiContraBarres();
             vText.imprimirDadesTorn(joc.jugadors[joc.getTorn()]);
             taulerMenuIFitxes();
             triarJugada();
@@ -55,17 +56,18 @@ public class ControlText {
     }
 
     public void taulerMenuIFitxes() {
-        vText.espacioContraBarras();
+        vText.espaiContraBarres();
         vText.missatgeTauler();
         vText.imprimirFitxesJugades(joc.fitxesJugades);
-        
+
         vText.imprimirFitxesJugador(joc.jugadors[joc.getTorn()].getFitxes());
         vText.mostrarMenuJoc();
     }
 
     /**
-     * Aquest mètode conté un switch on li arriva un numero amb l'opció escollida
-     * i s'executa la jugada corresponent a l'opció. (Ex: opcio 1. Afegir una fitxa, etc.)
+     * Aquest mètode conté un switch on li arriva un numero amb l'opció
+     * escollida i s'executa la jugada corresponent a l'opció. (Ex: opcio 1.
+     * Afegir una fitxa, etc.)
      */
     public void triarJugada() {
 
@@ -114,16 +116,19 @@ public class ControlText {
 
             if (torn.colocarUnaFitxa(joc.getJugadors()[joc.getTorn()].getFitxes().get(fitxa1), costat)) {
                 vText.missatgeFitxaCorrecta();
+                opcioIncorrecta = true;
             } else {
 
                 vText.missatgeFitxaIncorrecta();
-                if (vText.missatgePreguntaPassarTorn()) {
-                    opcioIncorrecta = false;
+                if (vText.missatgePreguntaPassarTorn().equals("S")) {
+                    opcioIncorrecta = true;
                     torn.passar();
+                } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
+                    opcioIncorrecta = false;
                 }
             }
 
-        } while (opcioIncorrecta);
+        } while (!opcioIncorrecta);
     }
 
     public void afegirDobles() {
@@ -159,18 +164,20 @@ public class ControlText {
 
                         vText.missatgeFitxaCorrecta();
                     } else {
-                        opcioIncorrecta = true;
+                        opcioIncorrecta = false;
                         vText.missatgeFitxaIncorrecta();
-                        if (vText.missatgePreguntaPassarTorn()) {
-                            opcioIncorrecta = false;
+                        if (vText.missatgePreguntaPassarTorn().equals("S")) {
+                            opcioIncorrecta = true;
                             torn.passar();
+                        } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
+                            opcioIncorrecta = false;
                         }
                     }
                 } else {
                     vText.errorDobles("missatge2");
-                    opcioIncorrecta = true;
+                    opcioIncorrecta = false;
                 }
             }
-        } while (opcioIncorrecta);
+        } while (!opcioIncorrecta);
     }
 }

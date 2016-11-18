@@ -24,14 +24,24 @@ public class VistaText {
         System.out.println("\n\t\tTé el torn" + ": " + jugador.getNom());
     }
 
+    /**
+     * Missatge inicial que dona la benvinguda al joc.
+     */
     public void missatgeInicial() {
-        System.out.println("\t\tBENVINGUT AL JOC DEL DOMINÓ");
+        System.out.println("\n\t\tBENVINGUT AL JOC DEL DOMINÓ");
     }
 
-    public void espacioContraBarras() {
-        System.out.println("\n////////////////////////////////////////////////////////");
+    /**
+     * Espai de separació per a que quedi més bonic.
+     */
+    public void espaiContraBarres() {
+        System.out.println("\n********************************************************");
     }
 
+    /**
+     * Missatge amb el text "Tauler" per indicar a sota les fitxes que estan en
+     * joc.
+     */
     public void missatgeTauler() {
         System.out.println("\n\t\t\tTAULER\n");
     }
@@ -58,6 +68,10 @@ public class VistaText {
     }
 
     /**
+     * Missatge d'error en el mètode de afegir dos dobles fitxes, que en cas de
+     * que sigui la mateixa fitxa la que es vol introduir apareix aquest error,
+     * també en cas de que la fitxa sigui diferent pero el lloc el mateix,
+     * apareix un missatge de que intentes possar-les al mateix costat.
      *
      * @param error
      */
@@ -74,6 +88,7 @@ public class VistaText {
      */
     public void imprimirFitxesJugador(List<Fitxa> fitxes) {
 
+        espaiContraBarres();
         System.out.println("\nLes teves fitxes són: ");
         for (int i = 0; i < fitxes.size(); i++) {
             System.out.print(" [" + fitxes.get(i).valors[0] + ":" + fitxes.get(i).valors[1] + "] ");
@@ -81,6 +96,14 @@ public class VistaText {
 
     }
 
+    /**
+     * Mètode que comprova errors i torna la posicio de la fitxa menys 1, per
+     * tal de que l'usuari pugui introduir les fitxes des de 1 a 7, no com en
+     * cas contrari que es de 0 a 6.
+     *
+     * @param fitxa
+     * @return
+     */
     public int introduirFitxa(List<Fitxa> fitxa) {
         int fitxaIntroduida = 0;
         do {
@@ -119,22 +142,16 @@ public class VistaText {
     }
 
     /**
-     * Mostra un missatge que anirá davant de les fitxes que té l'usuari.
-     */
-//    public void mostrarMissatgeFitxes() {
-//        System.out.println("\nLes teves fitxes són: ");
-//    }
-    /**
-     * Mostra un missatge de text seguit del nom del jugador que guanya la
-     * partida.
+     * Mostra un missatge amb el nom del jugador que guanya la partida envoltat
+     * d'un marc perque quedi més bonic.
      *
      * @param jugGuanyador
      */
     public void imprimirGuanyador(Jugador jugGuanyador) {
         System.out.println();
 
-        System.out.println("\t╔═════════════════╗ \n\t║" 
-                +"EL GUANYADOR ÉS: "+ jugGuanyador.getNom().toUpperCase()
+        System.out.println("\t╔═════════════════╗ \n\t║"
+                + "EL GUANYADOR ÉS: " + jugGuanyador.getNom().toUpperCase()
                 + " ║" + "\n\t╚═════════════════╝ ");
 
     }
@@ -147,41 +164,105 @@ public class VistaText {
         System.out.println("En què costat vols posar la fitxa? (Ex: E -> Esquerra / D -> Dreta)");
     }
 
+    /**
+     * En cas de que la fitxa s'hagi introduit bé, mostra aquest missatge.
+     */
     public void missatgeFitxaCorrecta() {
         System.out.println("\nFITXA INTRODUIDA CORRECTAMENT.\n\n");
     }
 
+    /**
+     * En cas de que la fitxa s'hagi introduit malament, mostra aquest missatge.
+     */
     public void missatgeFitxaIncorrecta() {
         System.err.println("\nFITXA NO INTRODUIDA. TORNA A PROVAR-HO AMB UNA FITXA VÀLIDA!\n\n");
     }
 
+    /**
+     * En cas de que l'usuari passi el torn, es mostra aquest missatge.
+     */
     public void missatgePassarTorn() {
         System.out.println("\nS'HA PASSAT EL TORN.");
     }
 
     //ARREGLAR EL NO PASSAR
-    public boolean missatgePreguntaPassarTorn() {
-        boolean passarONo = false;
-        do {
-            System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
+//    public boolean missatgePreguntaPassarTorn() {
+//        boolean passarONo = false;
+//        do {
+//            System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
+//
+//            if (lector.hasNext()) {
+//                String resposta = lector.next();
+//                if (resposta.toUpperCase().equals("S")) {
+//                    passarONo = true;
+//                } else if (resposta.toUpperCase().equals("N")) {
+//                    passarONo = false;
+//                } else {
+//                    System.err.println("ERROR! Introdueix una fitxa vàlida.");
+//                }
+//            } else {
+//                System.out.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
+//                int num = lector.nextInt();
+//                passarONo = true;
+//            }
+//        } while (!passarONo);
+//
+//        return passarONo;
+//    }
+//    public boolean missatgePreguntaPassarTorn() {
+//        
+//        boolean passarONo = false;
+//        System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
+//        
+//        do {
+//            String resposta;
+//            if (lector.hasNextInt()) {
+//                System.err.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
+//                int num = lector.nextInt();
+//                passarONo = false;
+//            } else {
+//                resposta = lector.next().toUpperCase();
+//
+//                switch (resposta) {
+//                    case "S": {
+//                        passarONo = true;
+//                        break;
+//                    }
+//                    case "N": {
+//                        passarONo = false;
+//                        System.out.println("No");
+//                        break;
+//                    }
+////                    default: {
+////                        System.err.println("ERROR! Introdueix una fitxa vàlida.");
+////                        passarONo = false;
+////                        break;
+////                    }
+//                }
+//            }
+//
+//        } while (!passarONo);
+//
+//        return passarONo;
+//    }
+    public String missatgePreguntaPassarTorn() {
+        boolean passarONo;
+        System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
 
-            if (lector.hasNext()) {
-                String resposta = lector.next();
-                if (resposta.toUpperCase().equals("S")) {
-                    passarONo = true;
-                } else if (resposta.toUpperCase().equals("N")) {
-                    passarONo = false;
-                } else {
-                    System.err.println("ERROR! Introdueix una fitxa vàlida.");
-                }
-            } else {
-                System.out.println("SISPLAU INTRODUEU NOMÉS \"S\" -> Si / \"N\" -> No )");
+        do {
+
+            if (lector.hasNextInt()) {
+                System.err.println("SISPLAU INTRODUIU NOMÉS \"S\" -> Si / \"N\" -> No )");
                 int num = lector.nextInt();
+                passarONo = false;
+            } else {
+                
                 passarONo = true;
             }
+
         } while (!passarONo);
 
-        return passarONo;
+        return lector.next().toUpperCase();
     }
 
     /**
