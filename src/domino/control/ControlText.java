@@ -126,13 +126,7 @@ public class ControlText {
     private boolean calculPreguntarTorn() {
         boolean opcioIncorrecta = false;
         vText.missatgeFitxaIncorrecta();
-        if (vText.missatgePreguntaPassarTorn().equals("S")) {
-            opcioIncorrecta = true;
-            torn.passar();
-        } else if (vText.missatgePreguntaPassarTorn().equals("N")) {
-            opcioIncorrecta = false;
-        }
-        return opcioIncorrecta;
+        return vText.missatgePreguntaPassarTorn().equals("S");
     }
 
     public void afegirDobles() {

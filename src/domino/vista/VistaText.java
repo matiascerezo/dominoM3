@@ -106,14 +106,22 @@ public class VistaText {
      */
     public int introduirFitxa(List<Fitxa> fitxa) {
         int fitxaIntroduida = 0;
+        boolean incorrecte;
         do {
             if (lector.hasNextInt()) {
                 fitxaIntroduida = lector.nextInt();
-
+                if (comprovarFitxaIntroduida(fitxaIntroduida, fitxa.size())) {
+                    incorrecte = true;
+                } else {
+                    System.err.println("EL NÚMERO DE LA FITXA HA DE SER 1-7.");
+                    mostrarMissatge();
+                    incorrecte = false;
+                }
             } else {
                 System.err.println("ERROR! Introdueix una fitxa vàlida.");
                 mostrarMissatge();
-                String cadena = lector.next();
+                String cadena = lector.nextLine();
+                incorrecte = false;
             }
 
         } while (!comprovarFitxaIntroduida(fitxaIntroduida, fitxa.size()));
@@ -246,7 +254,8 @@ public class VistaText {
 //        return passarONo;
 //    }
     public String missatgePreguntaPassarTorn() {
-        boolean passarONo;
+        boolean passarONo = false;
+        String resposta = "";
         System.out.println("VOLS PASSAR EL TORN? (S -> Sí / N -> No)");
 
         do {
@@ -256,13 +265,17 @@ public class VistaText {
                 int num = lector.nextInt();
                 passarONo = false;
             } else {
-                
-                passarONo = true;
+                resposta = lector.next().toUpperCase();
+                if (resposta.equals("S") | resposta.equals("N")) {
+                    passarONo = true;
+                } else {
+                    System.err.println("L'OPCIÓ INTRODUIDA NO ES VÀLIDA.");
+                    passarONo = false;
+                }
             }
-
         } while (!passarONo);
 
-        return lector.next().toUpperCase();
+        return resposta;
     }
 
     /**
@@ -276,7 +289,7 @@ public class VistaText {
         if (lector.hasNextInt()) {
             opcio = lector.nextInt();
         } else {
-            String cadena = lector.next();
+            String cadena = lector.nextLine();
         }
         return opcio;
     }
@@ -331,12 +344,12 @@ public class VistaText {
 
         } while (!comprovarOpcioCostat(esqOdreta));
 
-        if (esqOdreta.toUpperCase().equals("E")) {
-            costat = true;
-        } else if (esqOdreta.toUpperCase().equals("D")) {
-            costat = false;
-        }
-        return costat;
+//        if (esqOdreta.toUpperCase().equals("E")) {
+//            costat = true;
+//        } else if (esqOdreta.toUpperCase().equals("D")) {
+//            costat = false;
+//        }
+        return esqOdreta.toUpperCase().equals("E");
     }
 
     /**
